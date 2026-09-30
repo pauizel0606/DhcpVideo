@@ -7,11 +7,11 @@
 
   <style>
     :root {
-      --orange: #ff7a18;
-      --orange-light: #ff9b55;
+      --orange: #ff7417;
+      --orange-light: #ff9a55;
+      --bg: #07080b;
       --text: #f5f5f7;
-      --muted: #96979d;
-      --bg: #07080a;
+      --muted: #999ba2;
     }
 
     * {
@@ -20,16 +20,27 @@
       padding: 0;
     }
 
+    html,
     body {
-      min-height: 100vh;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      color: var(--text);
       background: var(--bg);
+      color: var(--text);
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
     /* =====================================================
@@ -44,122 +55,207 @@
       background:
         radial-gradient(
           circle at 50% 50%,
-          rgba(255, 122, 24, 0.035),
+          rgba(255, 116, 23, 0.08),
           transparent 45%
         ),
-        #07080a;
+        #07080b;
     }
 
-    /* Luz naranja principal */
+    /* Oscurece ligeramente los extremos */
 
-    .glow {
+    .background::after {
+      content: "";
       position: absolute;
-      width: 550px;
-      height: 550px;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          ellipse at center,
+          transparent 30%,
+          rgba(0, 0, 0, 0.35) 100%
+        );
+
+      pointer-events: none;
+    }
+
+    /* =====================================================
+       AURORAS NARANJAS
+    ===================================================== */
+
+    .aurora {
+      position: absolute;
+
+      width: 75vw;
+      height: 75vw;
+
+      max-width: 1000px;
+      max-height: 1000px;
+
       border-radius: 50%;
-      background: rgba(255, 100, 20, 0.12);
-      filter: blur(110px);
-      animation: moveGlow 18s ease-in-out infinite;
+
+      filter: blur(100px);
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 100, 15, 0.32) 0%,
+          rgba(255, 100, 15, 0.17) 28%,
+          rgba(255, 100, 15, 0.06) 50%,
+          transparent 70%
+        );
+
+      pointer-events: none;
     }
 
-    .glow.one {
-      left: -250px;
-      top: -220px;
+    .aurora.one {
+      left: -25%;
+      top: -35%;
+
+      animation:
+        auroraOne 18s ease-in-out infinite;
     }
 
-    .glow.two {
-      right: -250px;
-      bottom: -250px;
-      width: 600px;
-      height: 600px;
-      opacity: 0.75;
-      animation-delay: -8s;
+    .aurora.two {
+      right: -30%;
+      bottom: -40%;
+
+      width: 85vw;
+      height: 85vw;
+
+      animation:
+        auroraTwo 22s ease-in-out infinite;
     }
 
-    .glow.three {
-      width: 300px;
-      height: 300px;
-      left: 45%;
-      top: 40%;
-      opacity: 0.35;
-      animation-duration: 24s;
-      animation-delay: -12s;
+    .aurora.three {
+      width: 55vw;
+      height: 55vw;
+
+      left: 25%;
+      top: 20%;
+
+      opacity: 0.55;
+
+      animation:
+        auroraThree 25s ease-in-out infinite;
     }
 
-    @keyframes moveGlow {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
+    @keyframes auroraOne {
+
+      0%,
+      100% {
+        transform:
+          translate3d(0, 0, 0)
+          scale(1);
       }
 
       25% {
-        transform: translate3d(45px, 25px, 0) scale(1.05);
+        transform:
+          translate3d(14vw, 7vh, 0)
+          scale(1.08);
       }
 
       50% {
-        transform: translate3d(80px, -35px, 0) scale(0.96);
+        transform:
+          translate3d(24vw, 18vh, 0)
+          scale(0.92);
       }
 
       75% {
-        transform: translate3d(25px, -60px, 0) scale(1.04);
+        transform:
+          translate3d(8vw, 25vh, 0)
+          scale(1.05);
+      }
+    }
+
+    @keyframes auroraTwo {
+
+      0%,
+      100% {
+        transform:
+          translate3d(0, 0, 0)
+          scale(1);
       }
 
+      25% {
+        transform:
+          translate3d(-12vw, -7vh, 0)
+          scale(1.07);
+      }
+
+      50% {
+        transform:
+          translate3d(-25vw, -15vh, 0)
+          scale(0.94);
+      }
+
+      75% {
+        transform:
+          translate3d(-7vw, -22vh, 0)
+          scale(1.04);
+      }
+    }
+
+    @keyframes auroraThree {
+
+      0%,
       100% {
-        transform: translate3d(0, 0, 0) scale(1);
+        transform:
+          translate3d(0, 0, 0)
+          scale(1);
+      }
+
+      33% {
+        transform:
+          translate3d(10vw, -8vh, 0)
+          scale(1.12);
+      }
+
+      66% {
+        transform:
+          translate3d(-12vw, 10vh, 0)
+          scale(0.9);
       }
     }
 
     /* =====================================================
-       LÍNEAS DE LUZ
+       MALLA / LÍNEAS SUTILES
     ===================================================== */
 
-    .light-line {
+    .grid {
       position: absolute;
-      height: 1px;
-      width: 600px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 122, 24, 0.18),
-        transparent
-      );
-      opacity: 0;
-      animation: lightMove 10s linear infinite;
+      inset: -50%;
+
+      opacity: 0.08;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 122, 24, 0.12) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 122, 24, 0.12) 1px,
+          transparent 1px
+        );
+
+      background-size: 80px 80px;
+
+      transform: perspective(600px) rotateX(65deg);
+
+      animation: gridMove 20s linear infinite;
     }
 
-    .line-one {
-      top: 25%;
-      left: -600px;
-      transform: rotate(-12deg);
-    }
-
-    .line-two {
-      bottom: 25%;
-      right: -600px;
-      transform: rotate(12deg);
-      animation-delay: -5s;
-    }
-
-    @keyframes lightMove {
-      0% {
-        opacity: 0;
-        transform: translateX(0) rotate(-12deg);
+    @keyframes gridMove {
+      from {
+        background-position:
+          0 0,
+          0 0;
       }
 
-      15% {
-        opacity: 0.8;
-      }
-
-      50% {
-        opacity: 0.25;
-      }
-
-      85% {
-        opacity: 0.7;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(150vw) rotate(-12deg);
+      to {
+        background-position:
+          0 80px,
+          80px 0;
       }
     }
 
@@ -170,87 +266,97 @@
     .particles {
       position: absolute;
       inset: 0;
-      overflow: hidden;
+      pointer-events: none;
     }
 
     .particle {
       position: absolute;
+
       width: 3px;
       height: 3px;
+
       border-radius: 50%;
+
       background: var(--orange-light);
-      box-shadow: 0 0 12px rgba(255, 122, 24, 0.6);
+
+      box-shadow:
+        0 0 8px rgba(255, 116, 23, 0.8),
+        0 0 20px rgba(255, 116, 23, 0.35);
+
       opacity: 0;
-      animation: particleFloat linear infinite;
+
+      animation: particleMove linear infinite;
     }
 
     .particle:nth-child(1) {
-      left: 12%;
-      bottom: -10px;
-      animation-duration: 13s;
-      animation-delay: 1s;
+      left: 8%;
+      animation-duration: 12s;
+      animation-delay: 0s;
     }
 
     .particle:nth-child(2) {
-      left: 25%;
-      bottom: -10px;
-      animation-duration: 17s;
-      animation-delay: 5s;
-      transform: scale(0.6);
+      left: 21%;
+      animation-duration: 16s;
+      animation-delay: -5s;
     }
 
     .particle:nth-child(3) {
-      left: 42%;
-      bottom: -10px;
+      left: 37%;
       animation-duration: 14s;
-      animation-delay: 2s;
-      transform: scale(0.8);
+      animation-delay: -8s;
     }
 
     .particle:nth-child(4) {
-      left: 58%;
-      bottom: -10px;
-      animation-duration: 19s;
-      animation-delay: 8s;
-      transform: scale(0.5);
+      left: 55%;
+      animation-duration: 18s;
+      animation-delay: -3s;
     }
 
     .particle:nth-child(5) {
-      left: 73%;
-      bottom: -10px;
-      animation-duration: 15s;
-      animation-delay: 3s;
-      transform: scale(0.7);
+      left: 71%;
+      animation-duration: 13s;
+      animation-delay: -7s;
     }
 
     .particle:nth-child(6) {
-      left: 87%;
-      bottom: -10px;
-      animation-duration: 18s;
-      animation-delay: 6s;
-      transform: scale(0.55);
+      left: 86%;
+      animation-duration: 17s;
+      animation-delay: -11s;
     }
 
-    @keyframes particleFloat {
+    .particle:nth-child(7) {
+      left: 46%;
+      animation-duration: 20s;
+      animation-delay: -14s;
+    }
+
+    @keyframes particleMove {
+
       0% {
-        transform: translateY(0) translateX(0);
+        transform:
+          translate3d(0, 105vh, 0)
+          scale(0.5);
+
         opacity: 0;
       }
 
       15% {
-        opacity: 0.35;
+        opacity: 0.45;
       }
 
       50% {
-        opacity: 0.15;
+        opacity: 0.2;
       }
 
       85% {
-        opacity: 0.3;
+        opacity: 0.4;
       }
 
       100% {
-        transform: translateY(-110vh) translateX(80px);
+        transform:
+          translate3d(100px, -10vh, 0)
+          scale(1);
+
         opacity: 0;
       }
     }
@@ -261,14 +367,18 @@
 
     .page {
       width: min(1080px, 92vw);
+
       text-align: center;
-      animation: pageAppear 1s ease-out both;
+
+      animation:
+        pageAppear 1s ease-out both;
     }
 
     @keyframes pageAppear {
+
       from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(20px);
       }
 
       to {
@@ -277,14 +387,22 @@
       }
     }
 
+    /* =====================================================
+       TITULO
+    ===================================================== */
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
+
       margin-bottom: 18px;
+
       color: var(--muted);
+
       font-size: 12px;
       font-weight: 600;
+
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
@@ -292,45 +410,54 @@
     .dot {
       width: 7px;
       height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow:
-        0 0 8px rgba(255, 122, 24, 0.7),
-        0 0 20px rgba(255, 122, 24, 0.35);
 
-      animation: pulse 3s ease-in-out infinite;
+      border-radius: 50%;
+
+      background: var(--orange);
+
+      box-shadow:
+        0 0 8px rgba(255, 116, 23, 0.8),
+        0 0 25px rgba(255, 116, 23, 0.5);
+
+      animation: dotPulse 2.5s ease-in-out infinite;
     }
 
-    @keyframes pulse {
+    @keyframes dotPulse {
+
       0%,
       100% {
         transform: scale(1);
-        opacity: 0.8;
       }
 
       50% {
-        transform: scale(1.35);
-        opacity: 1;
+        transform: scale(1.5);
       }
     }
 
     h1 {
+      margin-bottom: 12px;
+
       font-size: clamp(40px, 6vw, 68px);
       line-height: 1;
-      letter-spacing: -0.05em;
+
       font-weight: 700;
-      margin-bottom: 12px;
+
+      letter-spacing: -0.05em;
     }
 
     h1 span {
       color: var(--orange);
-      text-shadow: 0 0 35px rgba(255, 122, 24, 0.12);
+
+      text-shadow:
+        0 0 30px rgba(255, 116, 23, 0.2);
     }
 
     .subtitle {
-      color: var(--muted);
-      font-size: 15px;
       margin-bottom: 34px;
+
+      color: var(--muted);
+
+      font-size: 15px;
     }
 
     /* =====================================================
@@ -339,65 +466,74 @@
 
     .video-wrap {
       position: relative;
+
       width: 100%;
+
       aspect-ratio: 16 / 9;
+
       max-height: 66vh;
+
       padding: 7px;
 
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+
       border-radius: 22px;
 
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.065),
           rgba(255, 255, 255, 0.018)
         );
 
       box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.5),
-        0 0 70px rgba(255, 122, 24, 0.045);
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        0 0 80px rgba(255, 116, 23, 0.07);
 
-      backdrop-filter: blur(18px);
-
-      transition:
-        border-color 0.4s ease,
-        box-shadow 0.4s ease;
+      backdrop-filter: blur(20px);
     }
 
     .video-wrap::before {
       content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: 22px;
-      padding: 1px;
 
-      background: linear-gradient(
-        120deg,
-        transparent 20%,
-        rgba(255, 122, 24, 0.35),
-        transparent 50%
-      );
+      position: absolute;
+
+      inset: -1px;
+
+      border-radius: 22px;
+
+      border: 1px solid transparent;
+
+      background:
+        linear-gradient(
+          120deg,
+          transparent 25%,
+          rgba(255, 116, 23, 0.5),
+          transparent 55%
+        ) border-box;
 
       mask:
-        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0) padding-box,
         linear-gradient(#000 0 0);
 
       mask-composite: exclude;
+
       opacity: 0.45;
 
-      animation: borderGlow 7s linear infinite;
+      animation: borderAnimation 6s linear infinite;
+
       pointer-events: none;
     }
 
-    @keyframes borderGlow {
+    @keyframes borderAnimation {
+
       0% {
-        transform: translateX(-40%);
+        transform: translateX(-50%);
         opacity: 0;
       }
 
       30% {
-        opacity: 0.45;
+        opacity: 0.5;
       }
 
       70% {
@@ -405,7 +541,7 @@
       }
 
       100% {
-        transform: translateX(40%);
+        transform: translateX(50%);
         opacity: 0;
       }
     }
@@ -413,17 +549,22 @@
     .video-inner {
       width: 100%;
       height: 100%;
+
       overflow: hidden;
+
       border-radius: 16px;
+
       background: #0d0e11;
-      position: relative;
     }
 
     video {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: contain;
+
       background: #0d0e11;
     }
 
@@ -433,12 +574,14 @@
 
     .footer {
       margin-top: 18px;
-      color: #62636a;
+
+      color: #62646b;
+
       font-size: 12px;
     }
 
     .footer b {
-      color: #898a91;
+      color: #898b92;
       font-weight: 500;
     }
 
@@ -453,8 +596,8 @@
       }
 
       .video-wrap {
-        border-radius: 17px;
         padding: 5px;
+        border-radius: 17px;
       }
 
       .video-inner {
@@ -465,14 +608,21 @@
         margin-bottom: 24px;
       }
 
-      .glow {
+      .grid {
+        opacity: 0.04;
+      }
+
+      .aurora {
         filter: blur(80px);
       }
     }
 
-    /* Reducir animaciones si el dispositivo lo solicita */
+    /* =====================================================
+       ACCESIBILIDAD
+    ===================================================== */
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
@@ -480,6 +630,7 @@
         animation-iteration-count: 1 !important;
       }
     }
+
   </style>
 </head>
 
@@ -491,39 +642,49 @@
 
   <div class="background">
 
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-    <div class="glow three"></div>
+    <!-- Auroras -->
+    <div class="aurora one"></div>
+    <div class="aurora two"></div>
+    <div class="aurora three"></div>
 
-    <div class="light-line line-one"></div>
-    <div class="light-line line-two"></div>
+    <!-- Malla en movimiento -->
+    <div class="grid"></div>
 
+    <!-- Partículas -->
     <div class="particles">
+
       <div class="particle"></div>
       <div class="particle"></div>
       <div class="particle"></div>
       <div class="particle"></div>
       <div class="particle"></div>
       <div class="particle"></div>
+      <div class="particle"></div>
+
     </div>
 
   </div>
 
 
   <!-- =====================================================
-       CONTENIDO PRINCIPAL
+       CONTENIDO
   ===================================================== -->
 
   <main class="page">
 
     <div class="eyebrow">
+
       <span class="dot"></span>
+
       Actividad DHCP
+
     </div>
+
 
     <h1>
       Pau <span>Izquierdo</span>
     </h1>
+
 
     <p class="subtitle">
       Configuración y demostración del servidor DHCP
@@ -531,26 +692,31 @@
 
 
     <!-- =================================================
-         VÍDEO
+         VIDEO
     ================================================= -->
 
     <section class="video-wrap">
 
       <div class="video-inner">
 
-        <!--
-          Pon tu vídeo en la misma carpeta que este HTML
-          y llámalo:
-
-          video.mp4
-        -->
-
         <video
           controls
           preload="metadata"
           playsinline
         >
-          <source src="video.mp4" type="video/mp4">
+
+          <!--
+            Pon tu vídeo en la misma carpeta
+            que este archivo HTML.
+
+            Nombre:
+            video.mp4
+          -->
+
+          <source
+            src="video.mp4"
+            type="video/mp4"
+          >
 
           Tu navegador no puede reproducir este vídeo.
 
@@ -562,7 +728,10 @@
 
 
     <div class="footer">
-      Sistemas Microinformáticos y Redes · <b>DHCP</b>
+
+      Sistemas Microinformáticos y Redes ·
+      <b>DHCP</b>
+
     </div>
 
   </main>
