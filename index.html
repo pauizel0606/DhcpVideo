@@ -1,693 +1,777 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pau Izquierdo · DHCP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      --orange: #ff7417;
-      --orange-light: #ff9a55;
-      --bg: #07080b;
-      --text: #f5f5f7;
-      --muted: #999ba2;
-    }
+<title>Pau Izquierdo · DHCP</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
+:root {
+    --orange: #ff6a00;
+    --orange2: #ff9d45;
+    --bg: #050608;
+    --white: #f5f5f7;
+    --gray: #9699a1;
+}
 
-    body {
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      color: var(--text);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-      font-family:
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family:
         Inter,
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-    }
+}
 
-    /* =====================================================
-       FONDO
-    ===================================================== */
 
-    .background {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      z-index: -10;
-      background:
+/* =========================================================
+   FONDO
+========================================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #050608;
+    z-index: -10;
+}
+
+
+/* =========================================================
+   GRANDES FORMAS NARANJAS
+========================================================= */
+
+.blob {
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    border-radius: 50%;
+
+    background:
         radial-gradient(
-          circle at 50% 50%,
-          rgba(255, 116, 23, 0.08),
-          transparent 45%
-        ),
-        #07080b;
-    }
-
-    /* Oscurece ligeramente los extremos */
-
-    .background::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background:
-        radial-gradient(
-          ellipse at center,
-          transparent 30%,
-          rgba(0, 0, 0, 0.35) 100%
+            circle at 35% 35%,
+            rgba(255, 170, 90, 0.95),
+            rgba(255, 106, 0, 0.65) 25%,
+            rgba(255, 70, 0, 0.25) 55%,
+            transparent 72%
         );
 
-      pointer-events: none;
+    filter: blur(45px);
+
+    mix-blend-mode: screen;
+
+    opacity: 0.7;
+}
+
+
+/* Blob 1 */
+
+.blob:nth-child(1) {
+
+    left: -300px;
+    top: -300px;
+
+    animation:
+        blob1 12s ease-in-out infinite alternate;
+}
+
+
+/* Blob 2 */
+
+.blob:nth-child(2) {
+
+    right: -300px;
+    bottom: -300px;
+
+    animation:
+        blob2 15s ease-in-out infinite alternate;
+
+    animation-delay: -5s;
+}
+
+
+/* Blob 3 */
+
+.blob:nth-child(3) {
+
+    width: 500px;
+    height: 500px;
+
+    left: 35%;
+    top: 30%;
+
+    opacity: 0.35;
+
+    animation:
+        blob3 10s ease-in-out infinite alternate;
+
+    animation-delay: -3s;
+}
+
+
+@keyframes blob1 {
+
+    0% {
+        transform:
+            translate(0, 0)
+            scale(0.9);
     }
 
-    /* =====================================================
-       AURORAS NARANJAS
-    ===================================================== */
+    50% {
+        transform:
+            translate(350px, 180px)
+            scale(1.25);
+    }
 
-    .aurora {
-      position: absolute;
+    100% {
+        transform:
+            translate(650px, 350px)
+            scale(0.85);
+    }
+}
 
-      width: 75vw;
-      height: 75vw;
 
-      max-width: 1000px;
-      max-height: 1000px;
+@keyframes blob2 {
 
-      border-radius: 50%;
+    0% {
+        transform:
+            translate(0, 0)
+            scale(0.9);
+    }
 
-      filter: blur(100px);
+    50% {
+        transform:
+            translate(-350px, -220px)
+            scale(1.3);
+    }
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(255, 100, 15, 0.32) 0%,
-          rgba(255, 100, 15, 0.17) 28%,
-          rgba(255, 100, 15, 0.06) 50%,
-          transparent 70%
+    100% {
+        transform:
+            translate(-600px, -400px)
+            scale(0.8);
+    }
+}
+
+
+@keyframes blob3 {
+
+    0% {
+        transform:
+            translate(-200px, 100px)
+            scale(0.7);
+    }
+
+    50% {
+        transform:
+            translate(250px, -150px)
+            scale(1.2);
+    }
+
+    100% {
+        transform:
+            translate(-150px, 200px)
+            scale(0.8);
+    }
+}
+
+
+/* =========================================================
+   ONDAS
+========================================================= */
+
+.wave {
+
+    position: absolute;
+
+    width: 900px;
+    height: 900px;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 106, 0, 0.18);
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) scale(0.1);
+
+    box-shadow:
+        0 0 60px rgba(255, 106, 0, 0.08),
+        inset 0 0 60px rgba(255, 106, 0, 0.04);
+
+    animation:
+        waveAnimation 8s linear infinite;
+}
+
+
+.wave:nth-child(5) {
+    animation-delay: -2s;
+}
+
+.wave:nth-child(6) {
+    animation-delay: -4s;
+}
+
+.wave:nth-child(7) {
+    animation-delay: -6s;
+}
+
+
+@keyframes waveAnimation {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(0.05);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    70% {
+        opacity: 0.25;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(2.2);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   LÍNEAS QUE CRUZAN LA PANTALLA
+========================================================= */
+
+.light {
+
+    position: absolute;
+
+    width: 700px;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 120, 30, 0.9),
+            transparent
         );
 
-      pointer-events: none;
-    }
-
-    .aurora.one {
-      left: -25%;
-      top: -35%;
-
-      animation:
-        auroraOne 18s ease-in-out infinite;
-    }
-
-    .aurora.two {
-      right: -30%;
-      bottom: -40%;
-
-      width: 85vw;
-      height: 85vw;
-
-      animation:
-        auroraTwo 22s ease-in-out infinite;
-    }
-
-    .aurora.three {
-      width: 55vw;
-      height: 55vw;
-
-      left: 25%;
-      top: 20%;
-
-      opacity: 0.55;
-
-      animation:
-        auroraThree 25s ease-in-out infinite;
-    }
-
-    @keyframes auroraOne {
-
-      0%,
-      100% {
-        transform:
-          translate3d(0, 0, 0)
-          scale(1);
-      }
-
-      25% {
-        transform:
-          translate3d(14vw, 7vh, 0)
-          scale(1.08);
-      }
-
-      50% {
-        transform:
-          translate3d(24vw, 18vh, 0)
-          scale(0.92);
-      }
-
-      75% {
-        transform:
-          translate3d(8vw, 25vh, 0)
-          scale(1.05);
-      }
-    }
-
-    @keyframes auroraTwo {
-
-      0%,
-      100% {
-        transform:
-          translate3d(0, 0, 0)
-          scale(1);
-      }
-
-      25% {
-        transform:
-          translate3d(-12vw, -7vh, 0)
-          scale(1.07);
-      }
-
-      50% {
-        transform:
-          translate3d(-25vw, -15vh, 0)
-          scale(0.94);
-      }
-
-      75% {
-        transform:
-          translate3d(-7vw, -22vh, 0)
-          scale(1.04);
-      }
-    }
-
-    @keyframes auroraThree {
-
-      0%,
-      100% {
-        transform:
-          translate3d(0, 0, 0)
-          scale(1);
-      }
-
-      33% {
-        transform:
-          translate3d(10vw, -8vh, 0)
-          scale(1.12);
-      }
-
-      66% {
-        transform:
-          translate3d(-12vw, 10vh, 0)
-          scale(0.9);
-      }
-    }
-
-    /* =====================================================
-       MALLA / LÍNEAS SUTILES
-    ===================================================== */
-
-    .grid {
-      position: absolute;
-      inset: -50%;
-
-      opacity: 0.08;
-
-      background-image:
-        linear-gradient(
-          rgba(255, 122, 24, 0.12) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255, 122, 24, 0.12) 1px,
-          transparent 1px
+    filter:
+        blur(1px)
+        drop-shadow(
+            0 0 12px rgba(255, 106, 0, 0.7)
         );
 
-      background-size: 80px 80px;
+    opacity: 0;
 
-      transform: perspective(600px) rotateX(65deg);
+    transform: rotate(-25deg);
 
-      animation: gridMove 20s linear infinite;
-    }
+    animation:
+        lightMove 6s linear infinite;
+}
 
-    @keyframes gridMove {
-      from {
-        background-position:
-          0 0,
-          0 0;
-      }
 
-      to {
-        background-position:
-          0 80px,
-          80px 0;
-      }
-    }
+.light:nth-child(8) {
+    top: 20%;
+    left: -700px;
+}
 
-    /* =====================================================
-       PARTÍCULAS
-    ===================================================== */
 
-    .particles {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
+.light:nth-child(9) {
+    top: 70%;
+    left: -700px;
 
-    .particle {
-      position: absolute;
+    animation-delay: -3s;
+}
 
-      width: 3px;
-      height: 3px;
 
-      border-radius: 50%;
+@keyframes lightMove {
 
-      background: var(--orange-light);
-
-      box-shadow:
-        0 0 8px rgba(255, 116, 23, 0.8),
-        0 0 20px rgba(255, 116, 23, 0.35);
-
-      opacity: 0;
-
-      animation: particleMove linear infinite;
-    }
-
-    .particle:nth-child(1) {
-      left: 8%;
-      animation-duration: 12s;
-      animation-delay: 0s;
-    }
-
-    .particle:nth-child(2) {
-      left: 21%;
-      animation-duration: 16s;
-      animation-delay: -5s;
-    }
-
-    .particle:nth-child(3) {
-      left: 37%;
-      animation-duration: 14s;
-      animation-delay: -8s;
-    }
-
-    .particle:nth-child(4) {
-      left: 55%;
-      animation-duration: 18s;
-      animation-delay: -3s;
-    }
-
-    .particle:nth-child(5) {
-      left: 71%;
-      animation-duration: 13s;
-      animation-delay: -7s;
-    }
-
-    .particle:nth-child(6) {
-      left: 86%;
-      animation-duration: 17s;
-      animation-delay: -11s;
-    }
-
-    .particle:nth-child(7) {
-      left: 46%;
-      animation-duration: 20s;
-      animation-delay: -14s;
-    }
-
-    @keyframes particleMove {
-
-      0% {
+    0% {
         transform:
-          translate3d(0, 105vh, 0)
-          scale(0.5);
+            translateX(0)
+            rotate(-25deg);
 
         opacity: 0;
-      }
-
-      15% {
-        opacity: 0.45;
-      }
-
-      50% {
-        opacity: 0.2;
-      }
-
-      85% {
-        opacity: 0.4;
-      }
-
-      100% {
-        transform:
-          translate3d(100px, -10vh, 0)
-          scale(1);
-
-        opacity: 0;
-      }
     }
 
-    /* =====================================================
-       CONTENIDO
-    ===================================================== */
-
-    .page {
-      width: min(1080px, 92vw);
-
-      text-align: center;
-
-      animation:
-        pageAppear 1s ease-out both;
+    10% {
+        opacity: 0.8;
     }
 
-    @keyframes pageAppear {
-
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* =====================================================
-       TITULO
-    ===================================================== */
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      margin-bottom: 18px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-      font-weight: 600;
-
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--orange);
-
-      box-shadow:
-        0 0 8px rgba(255, 116, 23, 0.8),
-        0 0 25px rgba(255, 116, 23, 0.5);
-
-      animation: dotPulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes dotPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.5);
-      }
-    }
-
-    h1 {
-      margin-bottom: 12px;
-
-      font-size: clamp(40px, 6vw, 68px);
-      line-height: 1;
-
-      font-weight: 700;
-
-      letter-spacing: -0.05em;
-    }
-
-    h1 span {
-      color: var(--orange);
-
-      text-shadow:
-        0 0 30px rgba(255, 116, 23, 0.2);
-    }
-
-    .subtitle {
-      margin-bottom: 34px;
-
-      color: var(--muted);
-
-      font-size: 15px;
-    }
-
-    /* =====================================================
-       VIDEO
-    ===================================================== */
-
-    .video-wrap {
-      position: relative;
-
-      width: 100%;
-
-      aspect-ratio: 16 / 9;
-
-      max-height: 66vh;
-
-      padding: 7px;
-
-      border: 1px solid rgba(255, 255, 255, 0.11);
-
-      border-radius: 22px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.065),
-          rgba(255, 255, 255, 0.018)
-        );
-
-      box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.55),
-        0 0 80px rgba(255, 116, 23, 0.07);
-
-      backdrop-filter: blur(20px);
-    }
-
-    .video-wrap::before {
-      content: "";
-
-      position: absolute;
-
-      inset: -1px;
-
-      border-radius: 22px;
-
-      border: 1px solid transparent;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 25%,
-          rgba(255, 116, 23, 0.5),
-          transparent 55%
-        ) border-box;
-
-      mask:
-        linear-gradient(#000 0 0) padding-box,
-        linear-gradient(#000 0 0);
-
-      mask-composite: exclude;
-
-      opacity: 0.45;
-
-      animation: borderAnimation 6s linear infinite;
-
-      pointer-events: none;
-    }
-
-    @keyframes borderAnimation {
-
-      0% {
-        transform: translateX(-50%);
-        opacity: 0;
-      }
-
-      30% {
+    50% {
         opacity: 0.5;
-      }
+    }
 
-      70% {
-        opacity: 0.2;
-      }
+    90% {
+        opacity: 0.8;
+    }
 
-      100% {
-        transform: translateX(50%);
+    100% {
+        transform:
+            translateX(220vw)
+            rotate(-25deg);
+
         opacity: 0;
-      }
+    }
+}
+
+
+/* =========================================================
+   PARTÍCULAS
+========================================================= */
+
+.particles {
+    position: absolute;
+    inset: 0;
+}
+
+
+.particle {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ff9140;
+
+    box-shadow:
+        0 0 8px #ff6a00,
+        0 0 20px rgba(255, 106, 0, 0.8);
+
+    animation:
+        particleAnimation 5s linear infinite;
+}
+
+
+.particle:nth-child(1) {
+    left: 5%;
+    top: 80%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    left: 15%;
+    top: 50%;
+    animation-delay: -2s;
+}
+
+.particle:nth-child(3) {
+    left: 25%;
+    top: 90%;
+    animation-delay: -4s;
+}
+
+.particle:nth-child(4) {
+    left: 38%;
+    top: 70%;
+    animation-delay: -1s;
+}
+
+.particle:nth-child(5) {
+    left: 52%;
+    top: 85%;
+    animation-delay: -3s;
+}
+
+.particle:nth-child(6) {
+    left: 66%;
+    top: 60%;
+    animation-delay: -5s;
+}
+
+.particle:nth-child(7) {
+    left: 78%;
+    top: 80%;
+    animation-delay: -2.5s;
+}
+
+.particle:nth-child(8) {
+    left: 90%;
+    top: 55%;
+    animation-delay: -4.5s;
+}
+
+
+@keyframes particleAnimation {
+
+    0% {
+        transform:
+            translate(0, 80px)
+            scale(0);
+
+        opacity: 0;
     }
 
-    .video-inner {
-      width: 100%;
-      height: 100%;
-
-      overflow: hidden;
-
-      border-radius: 16px;
-
-      background: #0d0e11;
+    20% {
+        opacity: 1;
+        transform: scale(1);
     }
 
-    video {
-      width: 100%;
-      height: 100%;
+    50% {
+        transform:
+            translate(80px, -150px)
+            scale(1.2);
 
-      display: block;
-
-      object-fit: contain;
-
-      background: #0d0e11;
+        opacity: 0.8;
     }
 
-    /* =====================================================
-       FOOTER
-    ===================================================== */
+    100% {
+        transform:
+            translate(-80px, -400px)
+            scale(0);
 
-    .footer {
-      margin-top: 18px;
+        opacity: 0;
+    }
+}
 
-      color: #62646b;
 
-      font-size: 12px;
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.content {
+
+    position: relative;
+
+    width: min(1050px, 92vw);
+
+    margin: auto;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    text-align: center;
+
+    animation: appear 1s ease-out;
+}
+
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(-45%);
     }
 
-    .footer b {
-      color: #898b92;
-      font-weight: 500;
+    to {
+        opacity: 1;
+        transform:
+            translateY(-50%);
+    }
+}
+
+
+/* =========================================================
+   ETIQUETA
+========================================================= */
+
+.label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+
+    color: var(--gray);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
+}
+
+
+.status {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+    box-shadow:
+        0 0 8px var(--orange),
+        0 0 25px var(--orange);
+
+    animation:
+        statusPulse 2s ease-in-out infinite;
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
     }
 
-    /* =====================================================
-       MÓVIL
-    ===================================================== */
+    50% {
+        transform: scale(1.6);
+    }
+}
 
-    @media (max-width: 600px) {
 
-      .page {
+/* =========================================================
+   TITULO
+========================================================= */
+
+h1 {
+
+    font-size:
+        clamp(42px, 7vw, 72px);
+
+    font-weight: 700;
+
+    letter-spacing: -0.055em;
+
+    line-height: 1;
+
+    margin-bottom: 14px;
+}
+
+
+h1 span {
+
+    color: var(--orange);
+
+    text-shadow:
+        0 0 40px rgba(255, 106, 0, 0.35);
+}
+
+
+.subtitle {
+
+    color: var(--gray);
+
+    font-size: 15px;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-container {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    border-radius: 22px;
+
+    padding: 7px;
+
+    background:
+        rgba(255, 255, 255, 0.045);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.13);
+
+    box-shadow:
+
+        0 30px 100px
+        rgba(0, 0, 0, 0.6),
+
+        0 0 80px
+        rgba(255, 106, 0, 0.12);
+
+    backdrop-filter:
+        blur(15px);
+}
+
+
+.video {
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 16px;
+
+    background:
+        rgba(5, 6, 8, 0.8);
+
+    overflow: hidden;
+}
+
+
+video {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================================
+   PIE
+========================================================= */
+
+.footer {
+
+    margin-top: 18px;
+
+    color: #686a72;
+
+    font-size: 12px;
+}
+
+
+.footer strong {
+
+    color: #92949c;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .content {
         width: 94vw;
-      }
+    }
 
-      .video-wrap {
-        padding: 5px;
+    .video-container {
         border-radius: 17px;
-      }
+        padding: 5px;
+    }
 
-      .video-inner {
+    .video {
         border-radius: 12px;
-      }
-
-      .subtitle {
-        margin-bottom: 24px;
-      }
-
-      .grid {
-        opacity: 0.04;
-      }
-
-      .aurora {
-        filter: blur(80px);
-      }
     }
 
-    /* =====================================================
-       ACCESIBILIDAD
-    ===================================================== */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-      }
+    .blob {
+        filter: blur(35px);
     }
 
-  </style>
+    .wave {
+        width: 600px;
+        height: 600px;
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- =====================================================
-       FONDO ANIMADO
-  ===================================================== -->
 
-  <div class="background">
+<!-- =====================================================
+     FONDO ANIMADO
+===================================================== -->
 
-    <!-- Auroras -->
-    <div class="aurora one"></div>
-    <div class="aurora two"></div>
-    <div class="aurora three"></div>
+<div class="background">
 
-    <!-- Malla en movimiento -->
-    <div class="grid"></div>
+    <!-- Grandes luces -->
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+
+
+    <!-- Ondas -->
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+
+
+    <!-- Líneas de luz -->
+    <div class="light"></div>
+    <div class="light"></div>
+
 
     <!-- Partículas -->
     <div class="particles">
 
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
 
     </div>
 
-  </div>
+</div>
 
 
-  <!-- =====================================================
-       CONTENIDO
-  ===================================================== -->
+<!-- =====================================================
+     CONTENIDO
+===================================================== -->
 
-  <main class="page">
+<main class="content">
 
-    <div class="eyebrow">
 
-      <span class="dot"></span>
+    <div class="label">
 
-      Actividad DHCP
+        <span class="status"></span>
+
+        ACTIVIDAD DHCP
 
     </div>
 
 
     <h1>
-      Pau <span>Izquierdo</span>
+        Pau <span>Izquierdo</span>
     </h1>
 
 
     <p class="subtitle">
-      Configuración y demostración del servidor DHCP
+        Configuración y demostración del servidor DHCP
     </p>
 
 
@@ -695,46 +779,47 @@
          VIDEO
     ================================================= -->
 
-    <section class="video-wrap">
+    <div class="video-container">
 
-      <div class="video-inner">
+        <div class="video">
 
-        <video
-          controls
-          preload="metadata"
-          playsinline
-        >
+            <!--
+                Pon tu vídeo en la misma carpeta
+                que este archivo y llámalo:
 
-          <!--
-            Pon tu vídeo en la misma carpeta
-            que este archivo HTML.
+                video.mp4
+            -->
 
-            Nombre:
-            video.mp4
-          -->
+            <video
+                controls
+                preload="metadata"
+                playsinline
+            >
 
-          <source
-            src="video.mp4"
-            type="video/mp4"
-          >
+                <source
+                    src="video.mp4"
+                    type="video/mp4"
+                >
 
-          Tu navegador no puede reproducir este vídeo.
+                Tu navegador no puede reproducir este vídeo.
 
-        </video>
+            </video>
 
-      </div>
+        </div>
 
-    </section>
+    </div>
 
 
     <div class="footer">
 
-      Sistemas Microinformáticos y Redes ·
-      <b>DHCP</b>
+        Sistemas Microinformáticos y Redes ·
+        <strong>DHCP</strong>
 
     </div>
 
-  </main>
+
+</main>
+
 
 </body>
 </html>
