@@ -8,9 +8,10 @@
   <style>
     :root {
       --orange: #ff7a18;
-      --text: #f7f7f8;
-      --muted: #a7a7ad;
-      --bg: #08090b;
+      --orange-light: #ff9b55;
+      --text: #f5f5f7;
+      --muted: #96979d;
+      --bg: #07080a;
     }
 
     * {
@@ -28,80 +29,246 @@
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(
-          circle at 50% 45%,
-          rgba(255, 122, 24, 0.08),
-          transparent 30%
-        ),
-        var(--bg);
+      background: var(--bg);
     }
 
-    /* FONDO ANIMADO */
+    /* =====================================================
+       FONDO
+    ===================================================== */
 
     .background {
       position: fixed;
       inset: 0;
       overflow: hidden;
-      z-index: -1;
+      z-index: -10;
+      background:
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 122, 24, 0.035),
+          transparent 45%
+        ),
+        #07080a;
     }
 
-    .orb {
+    /* Luz naranja principal */
+
+    .glow {
       position: absolute;
-      width: 420px;
-      height: 420px;
+      width: 550px;
+      height: 550px;
       border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.13;
-      background: var(--orange);
-      animation: float 16s ease-in-out infinite;
+      background: rgba(255, 100, 20, 0.12);
+      filter: blur(110px);
+      animation: moveGlow 18s ease-in-out infinite;
     }
 
-    .orb.one {
-      top: -180px;
-      left: -120px;
+    .glow.one {
+      left: -250px;
+      top: -220px;
     }
 
-    .orb.two {
-      right: -180px;
-      bottom: -160px;
-      width: 500px;
-      height: 500px;
-      animation-delay: -7s;
+    .glow.two {
+      right: -250px;
+      bottom: -250px;
+      width: 600px;
+      height: 600px;
+      opacity: 0.75;
+      animation-delay: -8s;
     }
 
-    .orb.three {
-      width: 220px;
-      height: 220px;
-      top: 45%;
-      left: 48%;
-      opacity: 0.07;
-      animation-duration: 20s;
-      animation-delay: -11s;
+    .glow.three {
+      width: 300px;
+      height: 300px;
+      left: 45%;
+      top: 40%;
+      opacity: 0.35;
+      animation-duration: 24s;
+      animation-delay: -12s;
     }
 
-    @keyframes float {
-      0%, 100% {
+    @keyframes moveGlow {
+      0% {
         transform: translate3d(0, 0, 0) scale(1);
       }
 
+      25% {
+        transform: translate3d(45px, 25px, 0) scale(1.05);
+      }
+
       50% {
-        transform: translate3d(45px, -30px, 0) scale(1.08);
+        transform: translate3d(80px, -35px, 0) scale(0.96);
+      }
+
+      75% {
+        transform: translate3d(25px, -60px, 0) scale(1.04);
+      }
+
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
       }
     }
 
-    /* CONTENIDO */
+    /* =====================================================
+       LÍNEAS DE LUZ
+    ===================================================== */
+
+    .light-line {
+      position: absolute;
+      height: 1px;
+      width: 600px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 122, 24, 0.18),
+        transparent
+      );
+      opacity: 0;
+      animation: lightMove 10s linear infinite;
+    }
+
+    .line-one {
+      top: 25%;
+      left: -600px;
+      transform: rotate(-12deg);
+    }
+
+    .line-two {
+      bottom: 25%;
+      right: -600px;
+      transform: rotate(12deg);
+      animation-delay: -5s;
+    }
+
+    @keyframes lightMove {
+      0% {
+        opacity: 0;
+        transform: translateX(0) rotate(-12deg);
+      }
+
+      15% {
+        opacity: 0.8;
+      }
+
+      50% {
+        opacity: 0.25;
+      }
+
+      85% {
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(150vw) rotate(-12deg);
+      }
+    }
+
+    /* =====================================================
+       PARTÍCULAS
+    ===================================================== */
+
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--orange-light);
+      box-shadow: 0 0 12px rgba(255, 122, 24, 0.6);
+      opacity: 0;
+      animation: particleFloat linear infinite;
+    }
+
+    .particle:nth-child(1) {
+      left: 12%;
+      bottom: -10px;
+      animation-duration: 13s;
+      animation-delay: 1s;
+    }
+
+    .particle:nth-child(2) {
+      left: 25%;
+      bottom: -10px;
+      animation-duration: 17s;
+      animation-delay: 5s;
+      transform: scale(0.6);
+    }
+
+    .particle:nth-child(3) {
+      left: 42%;
+      bottom: -10px;
+      animation-duration: 14s;
+      animation-delay: 2s;
+      transform: scale(0.8);
+    }
+
+    .particle:nth-child(4) {
+      left: 58%;
+      bottom: -10px;
+      animation-duration: 19s;
+      animation-delay: 8s;
+      transform: scale(0.5);
+    }
+
+    .particle:nth-child(5) {
+      left: 73%;
+      bottom: -10px;
+      animation-duration: 15s;
+      animation-delay: 3s;
+      transform: scale(0.7);
+    }
+
+    .particle:nth-child(6) {
+      left: 87%;
+      bottom: -10px;
+      animation-duration: 18s;
+      animation-delay: 6s;
+      transform: scale(0.55);
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0.35;
+      }
+
+      50% {
+        opacity: 0.15;
+      }
+
+      85% {
+        opacity: 0.3;
+      }
+
+      100% {
+        transform: translateY(-110vh) translateX(80px);
+        opacity: 0;
+      }
+    }
+
+    /* =====================================================
+       CONTENIDO
+    ===================================================== */
 
     .page {
       width: min(1080px, 92vw);
       text-align: center;
-      animation: appear 0.8s ease-out both;
+      animation: pageAppear 1s ease-out both;
     }
 
-    @keyframes appear {
+    @keyframes pageAppear {
       from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(18px);
       }
 
       to {
@@ -113,7 +280,7 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       margin-bottom: 18px;
       color: var(--muted);
       font-size: 12px;
@@ -127,19 +294,37 @@
       height: 7px;
       border-radius: 50%;
       background: var(--orange);
-      box-shadow: 0 0 16px rgba(255, 122, 24, 0.7);
+      box-shadow:
+        0 0 8px rgba(255, 122, 24, 0.7),
+        0 0 20px rgba(255, 122, 24, 0.35);
+
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.35);
+        opacity: 1;
+      }
     }
 
     h1 {
-      font-size: clamp(36px, 6vw, 64px);
+      font-size: clamp(40px, 6vw, 68px);
       line-height: 1;
-      letter-spacing: -0.045em;
+      letter-spacing: -0.05em;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     h1 span {
       color: var(--orange);
+      text-shadow: 0 0 35px rgba(255, 122, 24, 0.12);
     }
 
     .subtitle {
@@ -148,23 +333,81 @@
       margin-bottom: 34px;
     }
 
-    /* VIDEO */
+    /* =====================================================
+       VIDEO
+    ===================================================== */
 
     .video-wrap {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
       max-height: 66vh;
+      padding: 7px;
+
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 22px;
-      padding: 7px;
-      background: rgba(255, 255, 255, 0.035);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
 
       box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.45),
-        0 0 60px rgba(255, 122, 24, 0.06);
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 70px rgba(255, 122, 24, 0.045);
 
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
+
+      transition:
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+    }
+
+    .video-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 22px;
+      padding: 1px;
+
+      background: linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255, 122, 24, 0.35),
+        transparent 50%
+      );
+
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+
+      mask-composite: exclude;
+      opacity: 0.45;
+
+      animation: borderGlow 7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes borderGlow {
+      0% {
+        transform: translateX(-40%);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 0.45;
+      }
+
+      70% {
+        opacity: 0.2;
+      }
+
+      100% {
+        transform: translateX(40%);
+        opacity: 0;
+      }
     }
 
     .video-inner {
@@ -172,7 +415,8 @@
       height: 100%;
       overflow: hidden;
       border-radius: 16px;
-      background: #111216;
+      background: #0d0e11;
+      position: relative;
     }
 
     video {
@@ -183,22 +427,33 @@
       background: #0d0e11;
     }
 
-    /* PIE */
+    /* =====================================================
+       FOOTER
+    ===================================================== */
 
     .footer {
       margin-top: 18px;
-      color: #676970;
+      color: #62636a;
       font-size: 12px;
     }
 
     .footer b {
-      color: #909198;
+      color: #898a91;
       font-weight: 500;
     }
 
+    /* =====================================================
+       MÓVIL
+    ===================================================== */
+
     @media (max-width: 600px) {
+
+      .page {
+        width: 94vw;
+      }
+
       .video-wrap {
-        border-radius: 16px;
+        border-radius: 17px;
         padding: 5px;
       }
 
@@ -209,18 +464,55 @@
       .subtitle {
         margin-bottom: 24px;
       }
+
+      .glow {
+        filter: blur(80px);
+      }
+    }
+
+    /* Reducir animaciones si el dispositivo lo solicita */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Fondo animado -->
+  <!-- =====================================================
+       FONDO ANIMADO
+  ===================================================== -->
+
   <div class="background">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+
+    <div class="light-line line-one"></div>
+    <div class="light-line line-two"></div>
+
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+
   </div>
+
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+  ===================================================== -->
 
   <main class="page">
 
@@ -237,16 +529,37 @@
       Configuración y demostración del servidor DHCP
     </p>
 
+
+    <!-- =================================================
+         VÍDEO
+    ================================================= -->
+
     <section class="video-wrap">
+
       <div class="video-inner">
 
-        <video controls preload="metadata">
+        <!--
+          Pon tu vídeo en la misma carpeta que este HTML
+          y llámalo:
+
+          video.mp4
+        -->
+
+        <video
+          controls
+          preload="metadata"
+          playsinline
+        >
           <source src="video.mp4" type="video/mp4">
+
           Tu navegador no puede reproducir este vídeo.
+
         </video>
 
       </div>
+
     </section>
+
 
     <div class="footer">
       Sistemas Microinformáticos y Redes · <b>DHCP</b>
